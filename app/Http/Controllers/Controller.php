@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\Division\Division;
+use App\Models\Devision\Devision;
 use App\Models\Team\Team;
 
 use Illuminate\Routing\Controller as BaseController;
@@ -12,27 +12,27 @@ class Controller extends BaseController
 {
 
 
-  private function generateDivision(string $title, string ...$teams): Division
+  private function generateDevision(string $title, string ...$teams): Devision
   {
-      $division = new Division($title);
-      $division->addTeams(...array_map(fn(string $team) => new Team($team), $teams));
-      $division->generateAllGames();
+      $devision = new Devision($title);
+      $devision->addTeams(...array_map(fn(string $team) => new Team($team), $teams));
+      $devision->generateAllGames();
 
-      return $division;
+      return $devision;
   }
 
-  private function generateDivisionsResults(){
-      $divisions = [
-          $this->generateDivision(
+  private function generateDevisionsResults(){
+      $devisions = [
+          $this->generateDevision(
             'Group A', 'ES', 'EE', 'BY', 'UA', 'KZ', 'UK', 'PL'
           ),
-          $this->generateDivision(
+          $this->generateDevision(
             'Group B', 'RU', 'LT', 'DE', 'IT', 'ND', 'FR', 'CR'
           ),
       ];
 
       return  array_map(
-        fn(Division $division) => $division->generatePointsTable(), $divisions);
+        fn(Devision $devision) => $devision->generatePointsTable(), $devisions);
   }
 
   private function generatePlayOff(){
@@ -44,7 +44,7 @@ class Controller extends BaseController
   public function generate()
   {
     return view('main',[
-          'divisionsTables' => $this->generateDivisionsResults(),
+          'devisionsTables' => $this->generateDevisionsResults(),
           'playOff' => $this->generatePlayOff(),
       ] );
   }

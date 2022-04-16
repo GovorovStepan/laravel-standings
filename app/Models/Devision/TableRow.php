@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Models\Division;
+namespace App\Models\Devision;
 
 use App\Models\Team\Team;
-use App\Models\Game\DivisionGame;
+use App\Models\Game\DevisionGame;
 
 class TableRow
 {
@@ -22,7 +22,7 @@ class TableRow
       }
   }
 
-  public function findGameForTeam(Team $team): ?DivisionGame
+  public function findGameForTeam(Team $team): ?DevisionGame
     {
         if ($this->team->isEqual($team)) {
             return null;
