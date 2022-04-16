@@ -2,7 +2,7 @@
 
 namespace App\Models\Game;
 
-class Result
+abstract class Result
 {
 
     private const SCORE_WIN = 2;

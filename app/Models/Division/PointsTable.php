@@ -20,13 +20,22 @@ class PointsTable
           $this->rows[] = new TableRow($team, $division->findTeamGames($team));
       }
 
-      // usort($this->rows, fn(ScoreTableRow $a, ScoreTableRow $b) => $a->points() > $b->points() ? -1 : 1);
+      $this->sort();
+  }
+
+  private function sort(){
+    usort($this->rows, fn(TableRow $a, TableRow $b) => $a->getPoints() > $b->getPoints() ? -1 : 1);
   }
 
 
   public function getRows(): array
   {
       return $this->rows;
+  }
+
+  public function getTitle(): string
+  {
+      return $this->title;
   }
 
 

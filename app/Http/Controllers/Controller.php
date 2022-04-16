@@ -21,22 +21,31 @@ class Controller extends BaseController
       return $division;
   }
 
-  public function generate()
-  {
-    $divisions = [
-        $this->generateDivision('Group A', 'ES', 'EE', 'BY', 'UA', 'KZ', 'UK'),
-        $this->generateDivision('Group B', 'RU', 'LT', 'DE', 'IT', 'ND', 'FR'),
-    ];
+  private function generateDivisionsResults(){
+      $divisions = [
+          $this->generateDivision(
+            'Group A', 'ES', 'EE', 'BY', 'UA', 'KZ', 'UK', 'PL'
+          ),
+          $this->generateDivision(
+            'Group B', 'RU', 'LT', 'DE', 'IT', 'ND', 'FR', 'CR'
+          ),
+      ];
 
+      return  array_map(
+        fn(Division $division) => $division->generatePointsTable(), $divisions);
+  }
 
-    $divisionsTables = array_map(
-      fn(Division $division) => $division->generatePointsTable(), $divisions);
-
+  private function generatePlayOff(){
     /*Логика для плей-офф будет здесь*/
 
+      return [];
+  }
 
+  public function generate()
+  {
     return view('main',[
-          'divisionsTables' => $divisionsTables,
+          'divisionsTables' => $this->generateDivisionsResults(),
+          'playOff' => $this->generatePlayOff(),
       ] );
   }
 }

@@ -22,6 +22,21 @@ class TableRow
       }
   }
 
+  public function findGameForTeam(Team $team): ?DivisionGame
+    {
+        if ($this->team->isEqual($team)) {
+            return null;
+        }
+
+        foreach ($this->games as $game) {
+            if ($game->hasTeam($team)) {
+                return $game;
+            }
+        }
+
+        return null;
+    }
+
 
   /**
     * Методы гетеры

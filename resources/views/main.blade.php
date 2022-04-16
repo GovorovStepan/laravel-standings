@@ -3,5 +3,9 @@
 @section('title', "Main")
 
 @section('content')
-<div> Main </div>
+  @foreach($divisionsTables as $table)
+    @component('inc.division', ['table'=>$table])@endcomponent
+  @endforeach
+
+
 @endsection
