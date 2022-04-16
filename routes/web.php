@@ -2,4 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/main', 'App\Http\Controllers\AppController@generate')->name('main');
+
+Route::get('/', function () { return view('start'); })->name('start');
+
+Route::get('/main', 'App\Http\Controllers\Controller@generate')->name('main');

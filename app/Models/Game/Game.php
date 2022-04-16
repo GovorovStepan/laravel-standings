@@ -2,15 +2,15 @@
 
 namespace App\Models\Game;
 
-use App\Models\Team;
+use App\Models\Team\Team;
 
 class Game
 {
 
-  private Team $firstTeam;
-  private Team $secondTeam;
-  private $firstTeamGoals;
-  private $secondTeamGoals;
+  protected Team $firstTeam;
+  protected Team $secondTeam;
+  protected $firstTeamGoals;
+  protected $secondTeamGoals;
 
 
   public function __construct(Team $firstTeam, Team $secondTeam)
@@ -20,7 +20,7 @@ class Game
     $this->generateGoals();
   }
 
-  public static function generateGoals()
+  public function generateGoals()
   {
     $this->firstTeamGoals = random_int(0, 5) ;
     $this->firstTeamGoals = random_int(0, 5) ;

@@ -1,13 +1,14 @@
 <?php
 
 
-namespace App\Models\Divison;
+namespace App\Models\Division;
 
 
 use Illuminate\Support\Collection;
 use App\Models\Game\DivisionGame;
+use App\Models\Team\Team;
 
-class Divison
+class Division
 {
 
     private string $title;
@@ -21,30 +22,49 @@ class Divison
         $this->teams = new Collection();
     }
 
-    public function generateScoreTable()
+    public function generatePointsTable()
     {
-      return new ScoreTable($this);
+        return new PointsTable($this);
     }
 
     public function generateAllGames() : void
     {
-      $this->teams->map(fn(Team $team) => $this->generateTeamGames($team));
+        $this->teams->map(fn(Team $team) => $this->generateTeamGames($team));
+    }
+
+    public function getGames(){
+        return $this->games->all();
+    }
+
+    public function getTeams(){
+        return $this->teams->all();
+    }
+
+    public function getTitle(){
+        return $this->title;
+    }
+
+    public function findTeamGames(Team $team): array
+    {
+        return array_values(
+            array_filter($this->games->all(), fn(DivisionGame $game) => $game->hasTeam($team))
+        );
     }
 
 
     private function generateTeamGames(Team $team) : void
     {
-      foreach ($this->teams as $divisionTeam) {
+        foreach ($this->teams as $divisionTeam) {
 
-          if ($team->isEqual($divisionTeam)||
-              $this->findGameForTeams($team, $divisionTeam)) continue;
+            if ($team->isEqual($divisionTeam)||
+                $this->findGameForTeams($team, $divisionTeam)) continue;
 
-          $this->games->push(new DivisionGame($team, $divisionTeam ));
-      }
+            $this->games->push(new DivisionGame($team, $divisionTeam ));
+        }
     }
 
 
-    private function findGameForTeams(Team $firstTeam, Team $secondTeam): ?Game
+    private function findGameForTeams(Team $firstTeam, Team $secondTeam): ?DivisionGame
     {
         $filteredGames = $this->games->filter(
           function ($game) use ($firstTeam, $secondTeam) {

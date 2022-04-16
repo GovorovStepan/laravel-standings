@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Team;
 
 class Team
 {
@@ -13,6 +13,14 @@ class Team
         $this->title = $title;
     }
 
+    public function isEqual(Team $team): bool
+    {
+        return $this->id === $team->getId();
+    }
+
+    /**
+      * Методы гетеры
+      */
     public function getId(): string
     {
         return $this->id;
@@ -23,10 +31,7 @@ class Team
         return $this->title;
     }
 
-    public function isEqual(Team $team): bool
-    {
-        return $this->id === $team->id;
-    }
+
 
 
 }

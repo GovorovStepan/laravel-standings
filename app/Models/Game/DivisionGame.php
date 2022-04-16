@@ -4,22 +4,25 @@ namespace App\Models\Game;
 
 
 use App\Exceptions\TeamNotPlayInGameException ;
+use App\Models\Team\Team;
 
 class DivisionGame extends Game
 {
+
   /**
     * Метод возвращает очки набранные командой в ходе игры дивизиона
     *
     */
   public function getTeamPoints(Team $team): int
   {
-      if ($this->firstTeam->isEqual($team))
+
+      if ($team->isEqual($this->firstTeam))
       {
           return Result::pointsForTeam(
             $this->firstTeamGoals, $this->secondTeamGoals);
       }
 
-      if ($this->secondTeam->isEqual($team))
+      if ($team->isEqual($this->secondTeam))
       {
           return Result::pointsForTeam(
             $this->secondTeamGoals, $this->firstTeamGoals);
@@ -37,7 +40,7 @@ class DivisionGame extends Game
   {
       if ($this->firstTeam->isEqual($team))
       {
-          rreturn Result::scoresForTeam(
+          return Result::scoresForTeam(
             $this->firstTeamGoals, $this->secondTeamGoals);
       }
 

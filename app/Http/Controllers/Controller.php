@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Division\Division;
-use App\Models\Team;
+use App\Models\Team\Team;
 
 use Illuminate\Routing\Controller as BaseController;
 
@@ -16,7 +16,7 @@ class Controller extends BaseController
   {
       $division = new Division($title);
       $division->addTeams(...array_map(fn(string $team) => new Team($team), $teams));
-      $division->generateGames();
+      $division->generateAllGames();
 
       return $division;
   }
@@ -29,7 +29,8 @@ class Controller extends BaseController
     ];
 
 
-    $divisionsTables = array_map(fn(Division $division) => $division->generateScoreTable(), $divisions);
+    $divisionsTables = array_map(
+      fn(Division $division) => $division->generatePointsTable(), $divisions);
 
     /*Логика для плей-офф будет здесь*/
 

@@ -10,7 +10,7 @@ class Result
     private const SCORE_FAIL = 0;
 
 
-    public ststic function pointsForTeam($teamGoals, $opponentGoals): int
+    public static function pointsForTeam($teamGoals, $opponentGoals): int
     {
 
         if ($teamGoals === $opponentGoals) {
@@ -26,7 +26,7 @@ class Result
     }
 
 
-    public function scoresForTeam($teamGoals, $opponentGoals): string
+    public static function scoresForTeam($teamGoals, $opponentGoals): string
     {
         return sprintf('%d : %d', $teamGoals, $opponentGoals);
     }
