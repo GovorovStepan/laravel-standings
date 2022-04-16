@@ -1,0 +1,80 @@
+<?php
+
+
+namespace App\Models\Divison;
+
+
+use Illuminate\Support\Collection;
+use App\Models\Game\DivisionGame;
+
+class Divison
+{
+
+    private string $title;
+    private Collection $teams;
+    private Collection $games;
+
+    public function __construct(string $title)
+    {
+        $this->title = $title;
+        $this->games = new Collection();
+        $this->teams = new Collection();
+    }
+
+    public function generateScoreTable()
+    {
+      return new ScoreTable($this);
+    }
+
+    public function generateAllGames() : void
+    {
+      $this->teams->map(fn(Team $team) => $this->generateTeamGames($team));
+    }
+
+
+    private function generateTeamGames(Team $team) : void
+    {
+      foreach ($this->teams as $divisionTeam) {
+
+          if ($team->isEqual($divisionTeam)||
+              $this->findGameForTeams($team, $divisionTeam)) continue;
+
+          $this->games->push(new DivisionGame($team, $divisionTeam ));
+      }
+    }
+
+
+    private function findGameForTeams(Team $firstTeam, Team $secondTeam): ?Game
+    {
+        $filteredGames = $this->games->filter(
+          function ($game) use ($firstTeam, $secondTeam) {
+            return $game->hasTeam($firstTeam) && $game->hasTeam($secondTeam);
+        });
+
+        return $filteredGames->isNotEmpty() ? $filteredGames->first() : null;
+    }
+
+
+    public function addTeams(Team  ...$teams): void
+    {
+        foreach ($teams as $team) $this->addTeam($team);
+    }
+
+    private function addTeam(Team $team): void
+    {
+        if ($this->hasTeam($team)) return;
+        $this->teams->push($team);
+    }
+
+    private function hasTeam(Team $team): bool
+    {
+        foreach ($this->teams as $divisionTeam) {
+            if ($team->isEqual($divisionTeam)) return true;
+        }
+        return false;
+    }
+
+
+}
+
+ ?>

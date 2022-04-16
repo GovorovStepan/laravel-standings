@@ -26,6 +26,11 @@ class Game
     $this->firstTeamGoals = random_int(0, 5) ;
   }
 
+  public function hasTeam(Team $team): bool
+  {
+      return $team->isEqual($this->firstTeam) || $team->isEqual($this->secondTeam);
+  }
+
   public function getFirstTeam(){return $this->firstTeam;}
   public function getSecondTeam(){return $this->secondTeam;}
   public function getFirstTeamGoals(){return $this->firstTeamGoals;}

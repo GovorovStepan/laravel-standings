@@ -2,6 +2,9 @@
 
 namespace App\Models\Game;
 
+
+use App\Exceptions\TeamNotPlayInGameException ;
+
 class DivisionGame extends Game
 {
   /**
@@ -22,6 +25,8 @@ class DivisionGame extends Game
             $this->secondTeamGoals, $this->firstTeamGoals);
       }
 
+      throw new TeamNotPlayInGameException();
+
   }
 
   /**
@@ -41,6 +46,8 @@ class DivisionGame extends Game
         return Result::scoresForTeam(
           $this->secondTeamGoals, $this->firstTeamGoals);
       }
+
+      throw new TeamNotPlayInGameException();
 
   }
 }

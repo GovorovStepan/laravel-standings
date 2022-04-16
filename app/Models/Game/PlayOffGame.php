@@ -17,7 +17,7 @@ class PlayOffGame extends Game
       * Переопределяем метод генерации основного класса
       *
       */
-    public static function generateGoals()
+    public static function generateGoals() : void
     {
         $goals = [random_int(0, 5), random_int(0, 5)];
         if ($goals[0] === $goals[1]) $goals[array_rand($goals)]++;
