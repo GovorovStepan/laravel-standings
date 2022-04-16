@@ -3,8 +3,8 @@
 @section('title', "Main")
 
 @section('content')
-  @foreach($devisionsTables as $table)
-    @component('inc.devision', ['table'=>$table])@endcomponent
+  @foreach($divisionsTables as $table)
+    @component('inc.division', ['table'=>$table])@endcomponent
   @endforeach
 
 

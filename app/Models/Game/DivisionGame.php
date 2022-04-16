@@ -6,7 +6,7 @@ namespace App\Models\Game;
 use App\Exceptions\TeamNotPlayInGameException ;
 use App\Models\Team\Team;
 
-class DevisionGame extends Game
+class DivisionGame extends Game
 {
 
   /**

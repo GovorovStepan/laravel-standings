@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Models\Devision;
+namespace App\Models\Division;
 
-use App\Models\Devision\Devision;
-use App\Models\Devision\TableRow;
+use App\Models\Division\Division;
+use App\Models\Division\TableRow;
 use App\Models\Team\Team;
 
 class PointsTable
@@ -12,12 +12,12 @@ class PointsTable
 
   private array $rows = [];
 
-  public function __construct(Devision $devision)
+  public function __construct(Division $division)
   {
-      $this->title = $devision->getTitle();
+      $this->title = $division->getTitle();
 
-      foreach ($devision->getTeams() as $team) {
-          $this->rows[] = new TableRow($team, $devision->findTeamGames($team));
+      foreach ($division->getTeams() as $team) {
+          $this->rows[] = new TableRow($team, $division->findTeamGames($team));
       }
 
       $this->sort();

@@ -1,14 +1,14 @@
 <?php
 
 
-namespace App\Models\Devision;
+namespace App\Models\Division;
 
 
 use Illuminate\Support\Collection;
-use App\Models\Game\DevisionGame;
+use App\Models\Game\DivisionGame;
 use App\Models\Team\Team;
 
-class Devision
+class Division
 {
 
     private string $title;
@@ -47,7 +47,7 @@ class Devision
     public function findTeamGames(Team $team): array
     {
         return array_values(
-            array_filter($this->games->all(), fn(DevisionGame $game) => $game->hasTeam($team))
+            array_filter($this->games->all(), fn(DivisionGame $game) => $game->hasTeam($team))
         );
     }
 
@@ -59,12 +59,12 @@ class Devision
             if ($team->isEqual($divisionTeam)||
                 $this->findGameForTeams($team, $divisionTeam)) continue;
 
-            $this->games->push(new DevisionGame($team, $divisionTeam ));
+            $this->games->push(new DivisionGame($team, $divisionTeam ));
         }
     }
 
 
-    private function findGameForTeams(Team $firstTeam, Team $secondTeam): ?DevisionGame
+    private function findGameForTeams(Team $firstTeam, Team $secondTeam): ?DivisionGame
     {
         $filteredGames = $this->games->filter(
           function ($game) use ($firstTeam, $secondTeam) {
