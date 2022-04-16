@@ -31,26 +31,4 @@ class DivisionGame extends Game
       throw new TeamNotPlayInGameException();
 
   }
-
-  /**
-    * Метод возвращает счет игры относительно команды
-    *
-    */
-  public function getTeamScores(Team $team): string
-  {
-      if ($this->firstTeam->isEqual($team))
-      {
-          return Result::scoresForTeam(
-            $this->firstTeamGoals, $this->secondTeamGoals);
-      }
-
-      if ($this->secondTeam->isEqual($team))
-      {
-        return Result::scoresForTeam(
-          $this->secondTeamGoals, $this->firstTeamGoals);
-      }
-
-      throw new TeamNotPlayInGameException();
-
-  }
 }

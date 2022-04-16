@@ -41,15 +41,15 @@ class TableRow
   /**
     * Методы гетеры
     */
-  public function getPoints()
+  public function getPoints(): int
   {
     return $this->points;
   }
-  public function getGames()
+  public function getGames(): array
   {
     return $this->games;
   }
-  public function getTeam()
+  public function getTeam(): Team
   {
     return $this->team;
   }

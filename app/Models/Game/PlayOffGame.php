@@ -2,6 +2,8 @@
 
 namespace App\Models\Game;
 
+use App\Models\Team\Team;
+
 class PlayOffGame extends Game
 {
     private Team $winner;
@@ -17,24 +19,28 @@ class PlayOffGame extends Game
       * Переопределяем метод генерации основного класса
       *
       */
-    public static function generateGoals() : void
+    protected function generateGoals() : void
     {
         $goals = [random_int(0, 5), random_int(0, 5)];
         if ($goals[0] === $goals[1]) $goals[array_rand($goals)]++;
 
         $this->firstTeamGoals = $goals[0] ;
-        $this->firstTeamGoals = $goals[1] ;
+        $this->secondTeamGoals = $goals[1] ;
     }
 
     /**
       * Метод поиска победителя, так как в играх плей офф не важны очки и счет
       * не может быть равным
       */
-    private function findWinner(){
+    private function findWinner(): Team
+    {
         return $this->firstTeamGoals > $this->secondTeamGoals ?
         $this->firstTeam : $this->secondTeam;
     }
 
 
-    public function getWinner(){return $this->winner;}
+    public function getWinner(): Team
+    {
+        return $this->winner;
+    }
 }

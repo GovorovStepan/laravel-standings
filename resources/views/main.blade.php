@@ -3,9 +3,10 @@
 @section('title', "Main")
 
 @section('content')
-  @foreach($divisionsTables as $table)
-    @component('inc.division', ['table'=>$table])@endcomponent
+  @foreach($divisions as $division)
+    @component('inc.division', ['table'=>$division])@endcomponent
   @endforeach
 
+  @component('inc.playoff', ['data'=>$playOff])@endcomponent
 
 @endsection

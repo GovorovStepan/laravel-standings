@@ -22,7 +22,7 @@ class Division
         $this->teams = new Collection();
     }
 
-    public function generatePointsTable()
+    public function generatePointsTable(): PointsTable
     {
         return new PointsTable($this);
     }
@@ -32,15 +32,16 @@ class Division
         $this->teams->map(fn(Team $team) => $this->generateTeamGames($team));
     }
 
-    public function getGames(){
-        return $this->games->all();
-    }
 
-    public function getTeams(){
+    public function getTeams(): array
+    {
         return $this->teams->all();
     }
 
-    public function getTitle(){
+
+
+    public function getTitle(): string
+    {
         return $this->title;
     }
 
@@ -93,6 +94,8 @@ class Division
         }
         return false;
     }
+
+
 
 
 }
