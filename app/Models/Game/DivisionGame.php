@@ -4,15 +4,6 @@ namespace App\Models\Game;
 
 class DivisionGame extends Game
 {
-  private Result $result;
-
-  public function __construct (Team $firstTeam, Team $secondTeam, $goals) {
-		// Вызов базового конструктора
-		parent::__construct($firstTeam, $secondTeam);
-    $this->result = new Result($goals);
-
-	}
-
   /**
     * Метод возвращает очки набранные командой в ходе игры дивизиона
     *
@@ -21,12 +12,14 @@ class DivisionGame extends Game
   {
       if ($this->firstTeam->isEqual($team))
       {
-          return $this->result->pointsForTeam();
+          return Result::pointsForTeam(
+            $this->firstTeamGoals, $this->secondTeamGoals);
       }
 
-      elseif ($this->secondTeam->isEqual($team))
+      if ($this->secondTeam->isEqual($team))
       {
-          return $this->result->pointsForTeam(false);
+          return Result::pointsForTeam(
+            $this->secondTeamGoals, $this->firstTeamGoals);
       }
 
   }
@@ -39,12 +32,14 @@ class DivisionGame extends Game
   {
       if ($this->firstTeam->isEqual($team))
       {
-          return $this->result->scoresForFirstTeam();
+          rreturn Result::scoresForTeam(
+            $this->firstTeamGoals, $this->secondTeamGoals);
       }
 
       if ($this->secondTeam->isEqual($team))
       {
-          return $this->result->scoresForSecondTeam();
+        return Result::scoresForTeam(
+          $this->secondTeamGoals, $this->firstTeamGoals);
       }
 
   }
