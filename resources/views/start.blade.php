@@ -14,9 +14,13 @@
                 </a>
 
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    @foreach($previousGenerations as $generation)
-                        <li><a class="dropdown-item" href="/generation/{{$generation->generationId}}"><h6>{{$generation->generationId}}</h6> from {{$generation->created_at}}</a></li>
-                    @endforeach
+                    @if ($previousGenerations)
+                        @foreach($previousGenerations as $generation)
+                            <li><a class="dropdown-item" href="/generation/{{$generation->generationId}}"><h6>{{$generation->generationId}}</h6> from {{$generation->created_at}}</a></li>
+                        @endforeach
+                    @else
+                        <li><p>Generate something first</p></li>
+                    @endif
                 </ul>
             </div>
         </div>
