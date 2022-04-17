@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePointsTable extends Migration
+class createGenerationIdTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreatePointsTable extends Migration
      */
     public function up()
     {
-        Schema::create('points_table', function (Blueprint $table) {
+        Schema::create('generation_id', function (Blueprint $table) {
             $table->id();
             $table->string('generationId');
-            $table->binary('divisionResult');
             $table->timestamp('created_at')->useCurrent();
         });
     }
@@ -28,6 +27,6 @@ class CreatePointsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('points_table');
+        Schema::dropIfExists('generation_id');
     }
 }

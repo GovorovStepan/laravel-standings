@@ -3,20 +3,29 @@
 @section('title', "Start")
 
 @section('content')
-<div>
-    <button type="button" class="btn btn-warning">Generate New</button>
-    <div class="dropdown">
-        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-            Look Old generations
-        </a>
+<div class="wrapper">
+    <div class="start_card">
+        <h1>DIVISION AND PLAYOFF GAMES GENERATOR</h1>
+        <div class="buttons">
+            <a href="/main" class="btn btn-warning btn-lg">Generate New</a>
+            <div class="dropdown">
+                <a class="btn btn-secondary dropdown-toggle btn-lg" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                    Watch previous generations
+                </a>
 
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-        </ul>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    @foreach($previousGenerations as $generation)
+                        <li><a class="dropdown-item" href="/generation/{{$generation->generationId}}"><h6>{{$generation->generationId}}</h6> from {{$generation->created_at}}</a></li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+
+
+
     </div>
 
 
 </div>
+
 @endsection

@@ -13,19 +13,29 @@ class Team
         $this->title = $title;
     }
 
+    /**
+     * @param Team $team
+     * @return bool
+     * Method for command identification
+     */
     public function isEqual(Team $team): bool
     {
         return $this->id === $team->getId();
     }
 
     /**
-      * Методы гетеры
-      */
+     * @return string
+     * ID getter
+     */
     public function getId(): string
     {
         return $this->id;
     }
 
+    /**
+     * @return string
+     * Title getter
+     */
     public function getTitle(): string
     {
         return $this->title;
