@@ -8,11 +8,10 @@ use App\Models\PlayOff\PlayOff;
 use App\Models\Team\Team;
 
 use Illuminate\Routing\Controller as BaseController;
-use JetBrains\PhpStorm\ArrayShape;
+use Illuminate\Support\Facades\DB;
 
-class Controller extends BaseController
+class AppController extends BaseController
 {
-
   private function generateDivision(string $title, string ...$teams): Division
   {
       $division = new Division($title);
@@ -30,23 +29,48 @@ class Controller extends BaseController
       ];
 
 
-      return  array_map(fn(Division $division) => $division->generatePointsTable(), $divisions);
+      return  array_map(fn(Division $division) =>
+        $division->generatePointsTable(), $divisions);
   }
 
  private function generatePlayOff($divisions) : array
  {
-      $playOff = new PlayOff($divisions[0]->getTeamsForPlayOff() , $divisions[1]->getTeamsForPlayOff());
+      $playOff = new PlayOff(
+          $divisions[0]->getTeamsForPlayOff() ,
+          $divisions[1]->getTeamsForPlayOff()
+      );
+
+
       return ['winner'=>$playOff->getWinner(), 'schedule'=>$playOff->getGamesSchedule()];
+  }
+
+  private function save($data){
+      $generationId = uniqid();
+
+      foreach ($data as $el){
+          $el['fields']['generationId'] = $generationId;
+          DB::table($el['table_name'])->insert($el['fields']);
+      }
   }
 
   public function generate()
   {
+    $divisions = $this->generateDivisionsResults();
+    $playOff =  $this->generatePlayOff($divisions);
 
-    $divisions= $this->generateDivisionsResults();
+
+    $saveData = [['table_name'=>'playoff', 'fields'=>  ['gamesSchedule'=>serialize($playOff) ] ]];
+    foreach ($divisions as $division)
+    {
+        $saveData[] = ['table_name'=>'points_table', 'fields'=>  ['divisionResult'=>serialize($division)] ];
+    }
+
+    $this->save($saveData);
+
 
     return view('main',[
           'divisions' => $divisions,
-          'playOff' => $this->generatePlayOff($divisions),
+          'playOff' => $playOff,
       ] );
   }
 }

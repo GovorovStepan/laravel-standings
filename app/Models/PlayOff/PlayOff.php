@@ -14,7 +14,7 @@ class PlayOff
    private array $gamesSchedule;
    private Team $winner;
 
-   public function __construct(array $firstDivisionTeams,  array $secondDivisionTeams)
+   public function __construct(array $firstDivisionTeams,  array $secondDivisionTeams,)
    {
        $this->firstDivisionTeams = new Collection($firstDivisionTeams);
        $this->secondDivisionTeams = new Collection($secondDivisionTeams);

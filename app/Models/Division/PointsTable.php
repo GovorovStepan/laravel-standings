@@ -2,9 +2,6 @@
 
 namespace App\Models\Division;
 
-use App\Models\Division\Division;
-use App\Models\Division\TableRow;
-use App\Models\Team\Team;
 
 class PointsTable
 {
